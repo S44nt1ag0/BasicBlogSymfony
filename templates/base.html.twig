@@ -1,17 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br" data-theme="light">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}DevBlog | Dashboard{% endblock %}</title>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+        <style>
+            body { font-family: 'Inter', sans-serif; }
+        </style>
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body class="bg-slate-50 min-h-screen">
+        <div class="navbar bg-white border-b border-slate-200 px-4 md:px-20 mb-10">
+            <div class="flex-1">
+                <a href="/" class="text-xl font-bold text-indigo-600 tracking-tight">🚀 DevBlog</a>
+            </div>
+            <div class="flex-none gap-2">
+                <ul class="menu menu-horizontal px-1 font-medium">
+                    <li><a href="/">Home</a></li>
+                </ul>
+                <div class="flex gap-2 ml-4">
+                    <a href="/login" class="btn btn-ghost btn-sm">Entrar</a>
+                    <a href="/register" class="btn btn-primary btn-sm px-6">Criar Conta</a>
+                </div>
+            </div>
+        </div>
+
+        <main class="max-w-4xl mx-auto px-4">
+            {% block body %}
+                <div class="card bg-white shadow-sm border border-slate-200">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl text-slate-800">Seu primeiro post aparecerá aqui!</h2>
+                        <p class="text-slate-600">O backend já está configurado, agora é só criar a entidade para salvar no banco.</p>
+                        <div class="card-actions justify-end mt-4">
+                            <button class="btn btn-outline btn-sm">Ler mais</button>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        </main>
+
+        <footer class="footer footer-center p-10 text-slate-500 mt-20">
+            <aside>
+                <p class="font-bold">DevBlog Engineering</p> 
+                <p>Copyright © 2026 - All right reserved</p>
+            </aside>
+        </footer>
     </body>
 </html>

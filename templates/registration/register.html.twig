@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Criar Conta{% endblock %}
+
+{% block body %}
+<div class="flex flex-col items-center justify-center pt-10">
+    <div class="card w-full max-w-md bg-white shadow-xl border border-slate-100">
+        <div class="card-body p-8">
+            <h1 class="text-2xl font-bold text-slate-800 text-center mb-6">Cadastre-se</h1>
+
+            {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="alert alert-error text-white mb-4">{{ flash_error }}</div>
+            {% endfor %}
+
+            {{ form_start(registrationForm, {'attr': {'class': 'space-y-4'}}) }}
+                
+                {# Email #}
+                <div class="form-control w-full">
+                    {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'label-text font-semibold text-slate-600'}}) }}
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'input input-bordered w-full bg-slate-50'}}) }}
+                    <div class="text-error text-xs mt-1">{{ form_errors(registrationForm.email) }}</div>
+                </div>
+
+                {# Senha #}
+                <div class="form-control w-full">
+                    {{ form_label(registrationForm.plainPassword, 'Senha', {'label_attr': {'class': 'label-text font-semibold text-slate-600'}}) }}
+                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'input input-bordered w-full bg-slate-50'}}) }}
+                    <div class="text-error text-xs mt-1">{{ form_errors(registrationForm.plainPassword) }}</div>
+                </div>
+
+                {# Termos #}
+                <div class="form-control">
+                    <label class="label cursor-pointer justify-start gap-3">
+                        {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'checkbox checkbox-primary'}}) }}
+                        <span class="label-text text-slate-600">Concordo com os termos</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full text-white font-bold mt-4">
+                    Criar minha conta
+                </button>
+
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entrar no DevBlog{% endblock %}
+
+{% block body %}
+<div class="flex flex-col items-center justify-center pt-10">
+    <div class="card w-full max-w-md bg-white shadow-xl border border-slate-100">
+        <div class="card-body p-8">
+            <h1 class="text-2xl font-bold text-slate-800 text-center mb-6">Acesse sua conta</h1>
+
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-error mb-4 shadow-sm text-sm py-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span>{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+                    </div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="bg-indigo-50 text-indigo-700 p-4 rounded-lg mb-6 text-sm flex justify-between items-center">
+                        <span>Logado como: <strong>{{ app.user.userIdentifier }}</strong></span>
+                        <a href="{{ logout_path() }}" class="link link-primary font-semibold">Sair</a>
+                    </div>
+                {% endif %}
+
+                <div class="form-control w-full mb-4">
+                    <label class="label" for="inputEmail">
+                        <span class="label-text font-semibold text-slate-600">Email</span>
+                    </label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" 
+                           class="input input-bordered w-full focus:border-indigo-500 bg-slate-50" 
+                           placeholder="seu@email.com" autocomplete="email" required autofocus>
+                </div>
+
+                <div class="form-control w-full mb-6">
+                    <label class="label" for="inputPassword">
+                        <span class="label-text font-semibold text-slate-600">Senha</span>
+                    </label>
+                    <input type="password" name="password" id="inputPassword" 
+                           class="input input-bordered w-full focus:border-indigo-500 bg-slate-50" 
+                           placeholder="••••••••" autocomplete="current-password" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <div class="form-control mt-6">
+                    <button class="btn btn-primary w-full text-white font-bold" type="submit">
+                        Entrar na Plataforma
+                    </button>
+                </div>
+
+                <div class="mt-6 text-center text-sm text-slate-500">
+                    Ainda não tem conta? <a href="/register" class="link link-primary no-underline hover:underline">Cadastre-se</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
