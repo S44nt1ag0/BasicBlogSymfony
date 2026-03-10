@@ -1,34 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Post{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block body %}
-    <h1>Post</h1>
+<div class="max-w-2xl mx-auto py-10 px-4">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ post.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ post.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ post.content }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <a href="{{ path('app_post_index') }}" class="btn btn-ghost btn-sm mb-6 text-slate-500">
+        ← Voltar ao feed
+    </a>
 
-    <a href="{{ path('app_post_index') }}">back to list</a>
+    <article class="bg-white p-8 rounded-xl shadow-sm border border-slate-100">
+        <header class="mb-8">
+            <h1 class="text-4xl font-extrabold text-slate-900 mb-2">{{ post.title }}</h1>
+            <div class="text-sm text-slate-400">
+                Publicado em: <time>{{ post.createdAt ? post.createdAt|date('d/m/Y - H:i') : '' }}</time>
+            </div>
+        </header>
 
-    <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
+        <div class="prose prose-slate max-w-none text-lg text-slate-700 leading-relaxed">
+            {{ post.content|nl2br }}
+        </div>
+    </article>
 
-    {{ include('post/_delete_form.html.twig') }}
+    <div class="mt-8 flex gap-3 items-center justify-end border-t pt-6">
+        <a href="{{ path('app_post_edit', {'id': post.id}) }}" class="btn btn-outline btn-sm">
+            Editar post
+        </a>
+        <div class="opacity-80">
+            {{ include('post/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
 {% endblock %}

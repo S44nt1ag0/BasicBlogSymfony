@@ -1,13 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Post{% endblock %}
+{% block title %}Editar Post{% endblock %}
 
 {% block body %}
-    <h1>Edit Post</h1>
+<div class="max-w-2xl mx-auto py-10 px-4">
 
-    {{ include('post/_form.html.twig', {'button_label': 'Update'}) }}
+    <a href="{{ path('app_post_index') }}" class="btn btn-ghost btn-sm mb-6 text-slate-500">
+        ← Voltar ao feed
+    </a>
 
-    <a href="{{ path('app_post_index') }}">back to list</a>
+    <div class="card bg-white shadow-lg border border-slate-100 p-8">
+        <h1 class="text-2xl font-bold text-slate-800 mb-6">Editar Post</h1>
 
-    {{ include('post/_delete_form.html.twig') }}
+  
+        {{ include('post/_form.html.twig', {'button_label': 'Atualizar Post'}) }}
+
+        <div class="mt-10 pt-6 border-t border-slate-200 flex justify-between items-center">
+            <span class="text-xs text-slate-400 italic">Área de ações sensíveis</span>
+            <div class="opacity-80 hover:opacity-100 transition-opacity">
+                {{ include('post/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
