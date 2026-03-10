@@ -11,7 +11,14 @@
 
     <div class="space-y-6">
         {% for post in posts %}
-            <article class="card w-full bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <article class="card w-full bg-white border border-slate-200 shadow-sm overflow-hidden">
+
+            {% if post.imageName %}
+                <figure>
+                    <img src="{{ asset('uploads/posts/' ~ post.imageName) }}" alt="{{ post.title }}" class="w-full h-48 object-cover" />
+                </figure>
+            {% endif %}
+
                 <div class="card-body p-5">
                     <h2 class="card-title text-xl font-bold text-slate-900">{{ post.title }}</h2>
                     <p class="text-slate-600 leading-relaxed">{{ post.content|slice(0, 150) }}{{ post.content|length > 150 ? '...' : '' }}</p>

@@ -3,27 +3,43 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block body %}
-<div class="max-w-2xl mx-auto py-10 px-4">
-
+<div class="max-w-3xl mx-auto py-10 px-4">
     <a href="{{ path('app_post_index') }}" class="btn btn-ghost btn-sm mb-6 text-slate-500">
         ← Voltar ao feed
     </a>
 
-    <article class="bg-white p-8 rounded-xl shadow-sm border border-slate-100">
-        <header class="mb-8">
-            <h1 class="text-4xl font-extrabold text-slate-900 mb-2">{{ post.title }}</h1>
-            <div class="text-sm text-slate-400">
-                Publicado em: <time>{{ post.createdAt ? post.createdAt|date('d/m/Y - H:i') : '' }}</time>
+    <article class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        {% if post.imageName %}
+            <div class="w-full h-[400px] overflow-hidden">
+                <img 
+                    src="{{ asset('uploads/posts/' ~ post.imageName) }}" 
+                    alt="{{ post.title }}" 
+                    class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
             </div>
-        </header>
+        {% endif %}
 
-        <div class="prose prose-slate max-w-none text-lg text-slate-700 leading-relaxed">
-            {{ post.content|nl2br }}
+        <div class="p-8 md:p-12">
+            <header class="mb-10">
+                <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-4 leading-tight">
+                    {{ post.title }}
+                </h1>
+                <div class="flex items-center gap-3 text-sm text-slate-400">
+                    <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500">
+                        {{ app.user.userIdentifier|slice(0, 1)|upper }}
+                    </div>
+                    <span>Publicado em <time class="font-medium text-slate-500">{{ post.createdAt ? post.createdAt|date('d/m/Y') : 'Data desconhecida' }}</time></span>
+                </div>
+            </header>
+
+            <div class="prose prose-slate lg:prose-xl max-w-none text-slate-700 leading-relaxed">
+                {{ post.content|nl2br }}
+            </div>
         </div>
     </article>
 
-    <div class="mt-8 flex gap-3 items-center justify-end border-t pt-6">
-        <a href="{{ path('app_post_edit', {'id': post.id}) }}" class="btn btn-outline btn-sm">
+    <div class="mt-8 flex gap-3 items-center justify-end border-t border-slate-200 pt-6">
+        <a href="{{ path('app_post_edit', {'id': post.id}) }}" class="btn btn-outline btn-sm border-slate-200 hover:bg-slate-50 hover:text-slate-900">
             Editar post
         </a>
         <div class="opacity-80">
